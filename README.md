@@ -24,6 +24,7 @@ Please find a summary of the supported software based memory acquisition methods
 | [RAW physical memory dump](https://github.com/ufrisk/LeechCore/wiki/Device_File)         | File             | No  | No  | Yes | No  |
 | [Full Microsoft Crash Dump](https://github.com/ufrisk/LeechCore/wiki/Device_File)        | File             | No  | No  | Yes | No  |
 | [Full ELF Core Dump](https://github.com/ufrisk/LeechCore/wiki/Device_File)               | File             | No  | No  | Yes | No  |
+| [QEMU](https://github.com/ufrisk/LeechCore/wiki/Device_QEMU)                             | Live&nbsp;Memory | Yes | Yes | No  | No  |
 | [VMware](https://github.com/ufrisk/LeechCore/wiki/Device_VMWare)                         | Live&nbsp;Memory | Yes | Yes | No  | No  |
 | [VMware memory save file](https://github.com/ufrisk/LeechCore/wiki/Device_File)          | File             | No  | No  | Yes | No  |
 | [TotalMeltdown](https://github.com/ufrisk/LeechCore/wiki/Device_Totalmeltdown)           | CVE-2018-1038    | Yes | Yes | No  | No  |
@@ -52,7 +53,6 @@ Please find a summary of the supported hardware based memory acquisition methods
 | [NeTV2/UDP](https://github.com/ufrisk/LeechCore/wiki/Device_RawUDP)            | [FPGA](https://github.com/ufrisk/pcileech-fpga/tree/master/NeTV2)        | UDP   |   7MB/s | Yes | Yes | No  |    |
 | [USB3380-EVB](https://github.com/ufrisk/LeechCore/wiki/Device_USB3380)         | USB3380 | USB3 | 150MB/s | No  | No  | No  |    |
 | [PP3380](https://github.com/ufrisk/LeechCore/wiki/Device_USB3380)              | USB3380 | USB3 | 150MB/s | No  | No  | No  |    |
-| [SP605/TCP](https://github.com/ufrisk/LeechCore/wiki/Device_SP605TCP)          | FPGA    | TCP  | 100kB/s | Yes | Yes | Yes |    |
 | [DMA patched HP iLO](https://github.com/ufrisk/LeechCore/wiki/Device_RawTCP)   | BMC     | TCP  |   1MB/s | Yes | No  | Yes |    |
 
 
@@ -113,7 +113,7 @@ PCILeech, MemProcFS and LeechCore are open source but not open contribution. PCI
 Links:
 ======
 * Twitter: [![Twitter](https://img.shields.io/twitter/follow/UlfFrisk?label=UlfFrisk&style=social)](https://twitter.com/intent/follow?screen_name=UlfFrisk)
-* Discord: [![Discord | Porchetta Industries](https://img.shields.io/discord/736724457258745996.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/sEkn3aa)
+* Discord: [![Discord | PCILeech/MemProcFS](https://img.shields.io/discord/1155439643395883128.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/BCmfBhDPXX)
 * PCILeech: https://github.com/ufrisk/pcileech
 * PCILeech FPGA: https://github.com/ufrisk/pcileech-fpga
 * LeechCore: https://github.com/ufrisk/LeechCore
@@ -195,12 +195,12 @@ v1.0-1.8
   - Support for Xen, KVM, VirtualBox, QEMU on Linux.
   - Pre-bundled on Linux x64 (libmicrovmi)
   - Thank you [Wenzel](https://github.com/Wenzel/) for this contribution.
-</details>
 
 [v2.11](https://github.com/ufrisk/LeechCore/releases/tag/v2.11)
 * Bug fixes.
 * Visual Studio 2022 Support.
 * New write fpga algorithm.
+</details>
 
 [v2.12](https://github.com/ufrisk/LeechCore/releases/tag/v2.12)
 * Support for MemProcFS v5.
@@ -212,5 +212,21 @@ v1.0-1.8
 [v2.14](https://github.com/ufrisk/LeechCore/releases/tag/v2.14)
 * VMM loopback device.
 
-Latest:
+[v2.15](https://github.com/ufrisk/LeechCore/releases/tag/v2.15)
+* Multi-threaded file access.
+* Volatile memory file support.
 * Support for LiME memory dump files.
+* Improved FPGA performance for smaller reads.
+* QEMU support on Linux (VM live memory introspection).
+* Improved [MemProcFS remoting](https://github.com/ufrisk/MemProcFS/wiki/_Remoting) via a remote [LeechAgent](https://github.com/ufrisk/LeechCore/wiki/LeechAgent). Full MemProcFS remote support over SMB - tcp/445. Perfect for memory forensics Incident Response (IR)!
+
+[v2.16](https://github.com/ufrisk/LeechCore/releases/tag/v2.16)
+* PCIe BAR information and user callback (easier implementation of custom devices).
+* ARM64 memory dump (.dmp) and VMWare Fusion (.vmem/.vmsn) support.
+* Improved handling of PCIe TLP user callback.
+
+Latest:
+* Bug fixes.
+* I/O BAR support.
+* Linux PCIe FPGA performance improvements.
+* Linux PCIe FPGA multiple devices (devindex) supported.

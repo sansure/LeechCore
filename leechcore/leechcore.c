@@ -1,6 +1,6 @@
 // leechcore.c : core implementation of the the LeechCore physical memory acquisition library.
 //
-// (c) Ulf Frisk, 2020-2022
+// (c) Ulf Frisk, 2020-2023
 // Author: Ulf Frisk, pcileech@frizk.net
 //
 
@@ -156,7 +156,7 @@ VOID LcCreate_FetchDeviceParameter(_Inout_ PLC_CONTEXT ctxLC)
     memcpy(szDevice, ctxLC->Config.szDevice, _countof(szDevice));
     if(!(szParameters = strstr(szDevice, "://"))) { return; }
     szParameters += 3;
-    while((szToken = strtok_s(szParameters, ",:;", &szTokenContext)) && (ctxLC->cDeviceParameter < LC_DEVICE_PARAMETER_MAX_ENTRIES)) {
+    while((szToken = strtok_s(szParameters, ",;", &szTokenContext)) && (ctxLC->cDeviceParameter < LC_DEVICE_PARAMETER_MAX_ENTRIES)) {
         szParameters = NULL;
         if(!(szDelim = strstr(szToken, "="))) { continue; }
         pe = &ctxLC->pDeviceParameter[ctxLC->cDeviceParameter];
@@ -212,8 +212,8 @@ VOID LcCreate_FetchDevice(_Inout_ PLC_CONTEXT ctx)
         ctx->pfnCreate = LeechRpc_Open;
         return;
     }
-    if(0 == _strnicmp("pipe://", ctx->Config.szRemote, 7)) {
-        strncpy_s(ctx->Config.szDeviceName, sizeof(ctx->Config.szDeviceName), "pipe", _TRUNCATE);
+    if(0 == _strnicmp("smb://", ctx->Config.szRemote, 6)) {
+        strncpy_s(ctx->Config.szDeviceName, sizeof(ctx->Config.szDeviceName), "smb", _TRUNCATE);
         ctx->pfnCreate = LeechRpc_Open;
         return;
     }
